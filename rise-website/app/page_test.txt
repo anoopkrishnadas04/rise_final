@@ -1,0 +1,43 @@
+'use client'
+
+import React, { useState, useEffect } from "react";
+
+export const getPrice = async () => {
+    const data = await fetch("http://127.0.0.1:5000/?stock=AAPL&graph=True&range=1d&table=True", {
+        next: { revalidate: 5},
+    });
+    const jdata = await data.json();
+    console.log(jdata.market_price);
+    return jdata.market_price;
+};
+  
+
+const Home = () => {
+    const [count, setCount] = useState(getPrice());
+
+	useEffect(() => {
+		//Implementing the setInterval method
+		const interval = setInterval(() => {
+			//console.log("in setInterval()" + count)
+            setCount(getPrice());
+            //console.log("out setInterval()")
+		}, 5000);
+
+		//Clearing the interval
+		return () => clearInterval(interval);
+	}, [count]);
+
+	return (
+		<div
+			style={{
+				display: "flexbox",
+				margin: "auto",
+				textAlign: "center",
+			}}
+		>
+			<h1>{count}</h1>
+		</div>
+	);
+};
+
+export default Home;

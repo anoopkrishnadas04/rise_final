@@ -1,0 +1,12 @@
+#table-container {
+    flex: 1 1 auto;
+    color: #fff;
+
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    padding-top: 5px;
+    padding-bottom: 5px;
+
+    border-left: 6px solid #42f551;
+}
